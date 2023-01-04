@@ -10,7 +10,7 @@ class User(UserMixin, BaseClass):
         0 - user
         1 - admin
     """
-
+ 
     id = Column(Integer, primary_key=True, index=True)
 
     name = Column(String(50), nullable=False, unique=True)
@@ -18,7 +18,7 @@ class User(UserMixin, BaseClass):
     password = Column(String, nullable=False, unique=False)
 
     car_registration = Column(String(10), nullable=False, unique=True)
-
+    
     role = Column(Integer, nullable=False, unique=False)
 
     def __init__(self, name: str, email: str, password: str, car_registration: str, role: int = 0):

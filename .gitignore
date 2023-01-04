@@ -1,0 +1,11 @@
+.env
+alembic.ini
+
+.DS_Store
+.idea
+.vscode
+
+.pytest_cache
+__pycache__
+
+log_data.log

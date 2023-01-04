@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Enter user name and user email to give user admin privileges </h1>
+
+    <form method="POST" action="/admin/update-user-status">
+        <div>
+            <input type="text" placeholder="name" name="user_name">
+        </div>
+        <div>
+            <input type="email" placeholder="email" name="user_email">
+        </div>
+        <div>
+            <button type="submit"> Give admin status</button>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Current users with admin privileges </h1>
+
+    {% for admin in admin_users %}
+        <ul>
+            <li> {{ admin.get('name', 'error loading admin name') }}</li>
+            <li> {{ admin.get('email', 'error loading admin email') }}</li>
+        </ul>
+    {% endfor %}
+
+{% endblock %}

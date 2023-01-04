@@ -3,6 +3,12 @@ from flask import redirect, url_for
 from flask_login import current_user, login_required
 
 
+ROLES = {
+    'admin': 1,
+    'user': 0
+}
+
+
 def role_required(role_value: int, redirect_endpoint: str = 'auth.login'):
     def decorator(func):
         @wraps(func)
@@ -15,11 +21,7 @@ def role_required(role_value: int, redirect_endpoint: str = 'auth.login'):
 
 
 def role_names(role: str) -> int:
-    roles = {
-        'admin': 1,
-        'user': 0
-    }
-    return roles.get(role, 0)
+    return ROLES.get(role, 0)
 
 
 def merged_login_role_required_decorator(role_value: str, redirect_endpoint: str = 'auth.login'):

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Current Discount Info </h1>
+
+    <ul>
+        <li> Base Discount: {{ current_discount.base_discount }} </li>
+        <li> Additional Discount: {{ current_discount.additional_discount }} </li>
+        <li> Additional Discount Description: {{ current_discount.additional_discount_description }} </li>
+        <li> Valid Since: {{ current_discount.valid_since }} </li>
+    </ul>
+
+    <h1>
+        Additional Discount Options
+    </h1>
+
+    <div>
+        <button type="button" onclick="window.location.href='{{ url_for('admin.admin_remove_additional_discount') }}';">
+            Remove Additional Discount
+        </button>
+    </div>
+
+    <h1> Update Discount </h1>
+
+    <form method="POST" action="/admin/update-discount-status">
+        <label> Base Discount
+            <input type="number"
+                   placeholder="Base Discount"
+                   name="base_discount"
+                   value="{{ current_discount.base_discount }}">
+        </label>
+        <label> Additional Discount
+            <input type="number"
+                   placeholder="Additional Discount"
+                   name="additional_discount"
+                   value="{{ current_discount.additional_discount }}">
+        </label>
+        <label> Additional Discount Description
+            <input type="text"
+                   placeholder="Additional Discount Desc."
+                   name="additional_discount_desc"
+                   value="{{ current_discount.additional_discount_description }}">
+        </label>
+        <button type="submit"> Update Discount </button>
+    </form>
+
+{% endblock %}

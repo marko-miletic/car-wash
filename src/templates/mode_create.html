@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Create New Mode </h1>
+
+    <form method="POST" action="/mode/create">
+        <label> Mode Description
+            <input type="text"
+                   placeholder="Mode Description"
+                   name="mode_description">
+        </label>
+        <label> Mode Price
+            <input type="number"
+                   placeholder="Mode Price"
+                   name="mode_price">
+        </label>
+        <button type="submit"> Create New Mode </button>
+    </form>
+
+{% endblock %}

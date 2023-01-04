@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> User List </h1>
+
+    <table>
+        <tr>
+            <th> Mode description </th>
+            <th> Mode price </th>
+            <th> Change mode status </th>
+        </tr>
+        {% for mode in modes %}
+            <tr>
+                <td> {{ mode.description }} </td>
+                <td> {{ mode.price }} </td>
+                <td>
+                    {% if mode.active == True %}
+                        <button type="button"
+                                onclick="window.location.href='{{ url_for('mode.mode_change_status',
+                                                                  mode_id=mode.id, status=0) }}';">
+                            Deactivate Mode
+                        </button>
+                    {% endif %}
+                    {% if mode.active == False %}
+                        <button type="button"
+                                onclick="window.location.href='{{ url_for('mode.mode_change_status',
+                                                                  mode_id=mode.id, status=1) }}';">
+                            Reactivate Mode
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

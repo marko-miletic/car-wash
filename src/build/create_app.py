@@ -16,6 +16,7 @@ def build_app():
     app.register_blueprint(routes.auth, url_prefix='/auth')
     app.register_blueprint(routes.admin, url_prefix='/admin')
     app.register_blueprint(routes.mode, url_prefix='/mode')
+    app.register_blueprint(routes.user, url_prefix='/user')
     
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)

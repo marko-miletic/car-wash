@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> User Program </h1>
+    <h2> Selected Modes </h2>
+
+    <h1> Current program price: {{ program_price }}</h1>
+
+    <table>
+        <tr>
+            <th> Mode description </th>
+            <th> Mode price </th>
+            <th> Remove mode from program </th>
+        </tr>
+        {% for mode in selected_modes %}
+            <tr>
+                <td> {{ mode.description }} </td>
+                <td> {{ mode.price }} </td>
+                <td>
+                    <button type="button"
+                            onclick="window.location.href='{{ url_for('user.user_program_remove_mode',
+                                                              mode_id=mode.id, user_id=user_id) }}';">
+                        Remove mode from program
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2> Unselected modes </h2>
+
+    <table>
+        <tr>
+            <th> Mode description </th>
+            <th> Mode price </th>
+            <th> Add mode to program </th>
+        </tr>
+        {% for mode in unselected_modes %}
+            <tr>
+                <td> {{ mode.description }} </td>
+                <td> {{ mode.price }} </td>
+                <td>
+                    <button type="button"
+                            onclick="window.location.href='{{ url_for('user.user_program_add_mode',
+                                                              mode_id=mode.id, user_id=user_id) }}';">
+                        Add mode to program
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <button type="button"
+            onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
+        Order program
+    </button>
+
+{% endblock %}

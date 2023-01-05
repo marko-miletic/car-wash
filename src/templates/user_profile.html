@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> User </h1>
+
+    <ul>
+        <li> User id: {{ user.id }}</li>
+        <li> User name: {{ user.name }} </li>
+        <li> User email: {{ user.email }} </li>
+        <li> User car registration: {{ user.car_registration }}</li>
+        <li> User role: {{ role_mapper.get(user.role) }} </li>
+    </ul>
+
+    <table>
+        <tr>
+            <th> Invoice id </th>
+            <th> Price </th>
+            <th> Status </th>
+        </tr>
+        {% for invoice in user_invoices %}
+            <tr>
+                <td> {{ invoice.get('id') }} </td>
+                <td> {{ invoice.get('price') }} </td>
+                <td> {{ invoice.get('completed') }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

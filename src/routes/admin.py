@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 
 from src.logs import logger
+from src.core.roles import ROLES
 from src.core.roles import merged_login_role_required_decorator
-from src.crud.user_operations import get_user_by_status
+from src.crud.user_operations import get_user_by_status, get_all_users
 from src.crud.admin_operations import update_change_user_status
-from src.crud.auth_operations import get_user_by_email
+from src.crud.auth_operations import get_user_by_email, get_user_by_id
 from src.crud.discount_operations import get_current_discount_data, post_create_new_discount
 from src.models import Discount
 from src.path_structure import TEMPLATES_DIRECTORY_PATH

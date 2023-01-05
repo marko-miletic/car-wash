@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import redirect, url_for
-from flask_login import current_user, login_required, AnonymousUserMixin
+from flask_login import current_user, login_required
 
 
 ROLES = {
@@ -13,7 +13,7 @@ def role_required(role_value: int, redirect_endpoint: str = 'auth.login'):
     def decorator(func):
         @wraps(func)
         def authorize(*args, **kwargs):
-            if AnonymousUserMixin.is_active or current_user.role < role_value:
+            if not hasattr(current_user, 'role') or current_user.role < role_value:
                 return redirect(url_for(redirect_endpoint))
             return func(*args, **kwargs)
         return authorize

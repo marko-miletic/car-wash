@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> User List </h1>
+
+    {% for user in users %}
+        <ul>
+            <li> User id: {{ user.id }}</li>
+            <li> User name: {{ user.name }} </li>
+            <li> User email: {{ user.email }} </li>
+            <li> User car_registration: {{ user.car_registration }}</li>
+            <li> User roles: {{ role_mapper.get(user.role) }} </li>
+            <li>
+                <button type="button"
+                        onclick="window.location.href='{{ url_for('admin.admin_user_view', user_id=user.id) }}';">
+                    View Profile
+                </button>
+            </li>
+        </ul>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Pending invoices </h1>
+
+    <table>
+        <tr>
+            <th> User </th>
+            <th> Price </th>
+            <th> Car registration </th>
+            <th> Complete transaction </th>
+        </tr>
+        {% for invoice in pending_invoices %}
+            <tr>
+                <td> {{ invoice.user }} </td>
+                <td> {{ invoice.price }} </td>
+                <td> {{ invoice.car_registration }} </td>
+                <td>
+                    <button type="button"
+                            onclick="window.location.href='{{ url_for('admin.admin_confirm_invoice_post',
+                                                              invoice_id=invoice.id) }}';">
+                        Complete program transaction
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from sqlalchemy.exc import SQLAlchemyError
 
 from src.logs import logger
@@ -26,9 +26,9 @@ def get_user_invoices(user_id: int, number: int = None) -> list:
             .join(User)\
             .filter(Invoice.user_id == user_id)
         if number is None:
-            invoices = invoices.all()
+            invoices = invoices.order_by(desc(Invoice.time_stamp)).all()
         else:
-            invoices = invoices.limit(number).all()
+            invoices = invoices.limit(number).order_by(desc(Invoice.time_stamp)).all()
         return [dict(zip(invoices_template, tuple(row))) for row in invoices]
     except SQLAlchemyError as err:
         logger.logging.error(err)

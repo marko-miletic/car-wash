@@ -14,17 +14,13 @@ def calculate_program_invoice_price(user_id: int) -> float:  # (selected modes, 
         for mode in current_user_program:
             total_modes_price += mode.get('price', 0)
 
-        print('modes price: ', total_modes_price)
-
         discounted_price = total_modes_price -\
                            ((current_discount_data.additional_discount / 100) * total_modes_price)
-
-        print('discount 1: ', discounted_price)
 
         if user_invoices_count % 10 == 0 and user_invoices_count != 0:
             discounted_price = discounted_price -\
                                ((current_discount_data.base_discount / 100) * discounted_price)
-        return discounted_price
+        return round(discounted_price, 2)
     except Exception as err:
         logger.logging.error(err)
         raise ValueError(err)

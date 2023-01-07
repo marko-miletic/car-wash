@@ -2,58 +2,91 @@
 
 {% block content %}
 
-    <h1> User Program </h1>
-    <h2> Selected Modes </h2>
-
-    <h1> Current program price: {{ program_price }}</h1>
-
-    <table>
-        <tr>
-            <th> Mode description </th>
-            <th> Mode price </th>
-            <th> Remove mode from program </th>
-        </tr>
-        {% for mode in selected_modes %}
-            <tr>
-                <td> {{ mode.description }} </td>
-                <td> {{ mode.price }} </td>
-                <td>
-                    <button type="button"
-                            onclick="window.location.href='{{ url_for('user.user_program_remove_mode',
-                                                              mode_id=mode.id, user_id=user_id) }}';">
-                        Remove mode from program
-                    </button>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <h2> Unselected modes </h2>
-
-    <table>
-        <tr>
-            <th> Mode description </th>
-            <th> Mode price </th>
-            <th> Add mode to program </th>
-        </tr>
-        {% for mode in unselected_modes %}
-            <tr>
-                <td> {{ mode.description }} </td>
-                <td> {{ mode.price }} </td>
-                <td>
-                    <button type="button"
-                            onclick="window.location.href='{{ url_for('user.user_program_add_mode',
-                                                              mode_id=mode.id, user_id=user_id) }}';">
-                        Add mode to program
-                    </button>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <button type="button"
-            onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
-        Order program
-    </button>
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div>
+            <div class="alert alert-primary" role="alert">
+                <h1> User program </h1>
+                Create your personal washing program by selecting available washing modes
+            </div>
+            <div class="alert alert-primary" role="alert">
+                <h1> Available modes </h1>
+                List of available washing modes that are not part of your program
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Price </th>
+                            <th scope="col"> Add mode to program </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for mode in unselected_modes %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ mode.description }} </td>
+                                <td> {{ mode.price }} </td>
+                                <td>
+                                    <button class="btn btn-success" type="button"
+                                            onclick="window.location.href='{{ url_for('user.user_program_add_mode',
+                                                                              mode_id=mode.id, user_id=user_id) }}';">
+                                        Add mode to program
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="margin-top: 2em">
+            <div class="alert alert-primary" role="alert">
+                <h1> Selected Modes </h1>
+                Current program content.
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Price </th>
+                            <th scope="col"> Remove mode from program </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for mode in selected_modes %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ mode.description }} </td>
+                                <td> {{ mode.price }} </td>
+                                <td>
+                                    <button class="btn btn-danger" type="button"
+                                            onclick="window.location.href='{{ url_for('user.user_program_remove_mode',
+                                                                              mode_id=mode.id, user_id=user_id) }}';">
+                                        Remove mode from program
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="margin-top: 2em">
+            <div class="alert alert-danger" role="alert">
+                <h1> Program order confirmation </h1>
+                <h3> Current program price: {{ program_price }} </h3>
+                <button class="alert alert-danger" type="button"
+                        onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
+                    Order program
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

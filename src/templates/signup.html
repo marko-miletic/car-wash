@@ -1,43 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-            </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/auth/signup">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-                </div>
-            </div>
 
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
+<div style="padding: 2em">
+    <div style="max-width: 50em;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-right: -50%;
+                transform: translate(-50%, -50%);">
+        <div class="alert alert-primary" role="alert">
+            <h1> Sign up </h1>
+            Please <a href={{ url_for('auth.login') }} class="alert-link"> Log in </a> if you have account already.
+        </div>
+        <div>
+            <form method="POST" action="/auth/signup">
+                <div class="mb-3">
+                    <label for="name" class="form-label"> Name </label>
+                    <input type="text" name="name" placeholder="enter your name ..." autofocus="" class="form-control">
                 </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
+                <div class="mb-3">
+                    <label for="email" class="form-label"> Email address </label>
+                    <input type="email" name="email" placeholder="enter your email ..." autofocus="" class="form-control">
+                    <div id="emailHelp" class="form-text"> We'll never share your email with anyone else. </div>
                 </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="car_registration" placeholder="Car registration" autofocus="">
+                <div class="mb-3">
+                    <label for="password" class="form-label"> Password </label>
+                    <input type="password" name="password" placeholder="enter your password ..." class="form-control">
                 </div>
-            </div>
-
-            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
-        </form>
+                <div class="mb-3">
+                    <label for="car_registration" class="form-label"> Car registration </label>
+                    <input type="text" name="car_registration" placeholder="enter car registration  ..." autofocus="" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary"> Sign up </button>
+            </form>
+        </div>
     </div>
 </div>
+
 {% endblock %}

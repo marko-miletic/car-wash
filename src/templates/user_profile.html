@@ -2,30 +2,116 @@
 
 {% block content %}
 
-    <h1> User </h1>
-
-    <ul>
-        <li> User id: {{ user.id }}</li>
-        <li> User name: {{ user.name }} </li>
-        <li> User email: {{ user.email }} </li>
-        <li> User car registration: {{ user.car_registration }}</li>
-        <li> User role: {{ role_mapper.get(user.role) }} </li>
-    </ul>
-
-    <table>
-        <tr>
-            <th> Invoice id </th>
-            <th> Price </th>
-            <th> Status </th>
-        </tr>
-        {% for invoice in user_invoices %}
-            <tr>
-                <td> {{ invoice.get('id') }} </td>
-                <td> {{ invoice.get('price') }} </td>
-                <td> {{ invoice.get('completed') }}</td>
-            </tr>
-        {% endfor %}
-
-    </table>
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div class="alert alert-primary" role="alert">
+            <h1> User profile </h1>
+            Car Wash account informations.
+        </div>
+        <div>
+            <ul class="list-group list-group-numbered">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold"> User id: </div>
+                        {{ user.id }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold"> Name: </div>
+                        {{ user.name }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold"> Email: </div>
+                        {{ user.email }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold"> Car registration: </div>
+                        {{ user.car_registration }}
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold"> Permission level </div>
+                        {{ role_mapper.get(user.role) }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="alert alert-primary" role="alert" style="margin-top: 2em">
+            <h1> Invoices </h1>
+            Button to load more will appear if you have more than 5 invoices
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col"> Invoice id </th>
+                        <th scope="col"> Invoice price </th>
+                        <th scope="col"> Invoice status </th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for invoice in user_invoices_first_part %}
+                        <tr>
+                            <th scope="row"> - </th>
+                            <td> {{ invoice.get('id') }} </td>
+                            <td> {{ invoice.get('price') }} </td>
+                            {% if invoice.get('completed') %}
+                                <td> Completed </td>
+                            {% endif %}
+                            {% if not invoice.get('completed') %}
+                                <td> Pending </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if user_invoices_rest %}
+            <div style="margin-top: 2em">
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Load more invoices
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> </th>
+                                    <th scope="col"> Invoice id </th>
+                                    <th scope="col"> Invoice price </th>
+                                    <th scope="col"> Invoice status </th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                {% for invoice in user_invoices_rest %}
+                                    <tr>
+                                        <th scope="row"> - </th>
+                                        <td> {{ invoice.get('id') }} </td>
+                                        <td> {{ invoice.get('price') }} </td>
+                                        {% if invoice.get('completed') %}
+                                            <td> Completed </td>
+                                        {% endif %}
+                                        {% if not invoice.get('completed') %}
+                                            <td> Pending </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

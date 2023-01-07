@@ -35,6 +35,17 @@ def get_user_invoices(user_id: int, number: int = None) -> list:
         raise err
 
 
+def get_split_user_invoices(user_id: int, split_number: int = None) -> tuple:
+    try:
+        invoices = get_user_invoices(user_id=user_id)
+        if len(invoices) <= split_number:
+            return invoices, list()
+        return invoices[:split_number], invoices[split_number:]
+    except SQLAlchemyError as err:
+        logger.logging.error(err)
+        raise err
+
+
 def get_count_user_invoices(user_id: int) -> int:
     try:
         user_invoice_count = session.query(func.count(Invoice.id))\

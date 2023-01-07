@@ -5,7 +5,7 @@ from src.logs import logger
 from src.core.roles import ROLES
 from src.crud.auth_operations import get_user_by_id
 from src.crud.program_operations import post_mode_in_program, delete_mode_from_program
-from src.crud.invoice_operations import post_create_new_invoice, get_user_invoices
+from src.crud.invoice_operations import post_create_new_invoice, get_split_user_invoices
 from src.utility.user_program import get_user_selected_and_available_modes
 from src.utility.invoice_calculation import calculate_program_invoice_price
 from src.models import Invoice
@@ -22,11 +22,12 @@ def user_profile():
     try:
         user_data = get_user_by_id(user_id=current_user.id)
         user_role_mapper = {value: key for key, value in ROLES.items()}
-        user_last_five_invoices = get_user_invoices(user_id=current_user.id, number=5)
+        user_split_by_five_invoices = get_split_user_invoices(user_id=current_user.id, split_number=5)
         return render_template('user_profile.html',
                                user=user_data,
                                role_mapper=user_role_mapper,
-                               user_invoices=user_last_five_invoices)
+                               user_invoices_first_part=user_split_by_five_invoices[0],
+                               user_invoices_rest=user_split_by_five_invoices[1])
     except Exception as err:
         logger.logging.error(err)
         return redirect(url_for('index.main'))

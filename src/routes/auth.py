@@ -32,7 +32,7 @@ def login_post():
             raise ValueError('Wrong credentials input')
 
         login_user(user, remember=remember)
-        return redirect(url_for('index.profile'))
+        return redirect(url_for('index.main'))
 
     except ValueError as err:
         logger.logging.error(err)

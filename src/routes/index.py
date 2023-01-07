@@ -11,13 +11,3 @@ index = Blueprint('index', __name__, template_folder=TEMPLATES_DIRECTORY_PATH)
 @index.route('/')
 def main():
     return render_template('index.html')
-
-
-@index.route('/profile_auth_test')
-@login_required
-def profile():
-    try:
-        return render_template('profile.html', name=current_user.name)
-    except Exception as err:
-        logger.logging.error(err)
-        return redirect(url_for('index.main'))

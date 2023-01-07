@@ -20,7 +20,6 @@
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-            <a class="navbar-brand" href="#"> Car Wash </a>
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -42,7 +41,6 @@
                                     <li><a class="dropdown-item" href={{ url_for('user.user_profile') }}> Profile </a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href={{ url_for('user.user_program') }}> Program </a></li>
-                                    <li><a class="dropdown-item" href={{ url_for('index.main') }}> Invoices </a></li>
                                 </ul>
                         </li>
                         {% if current_user.is_authenticated and current_user.role == 1 %}

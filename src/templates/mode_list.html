@@ -2,36 +2,55 @@
 
 {% block content %}
 
-    <h1> User List </h1>
-
-    <table>
-        <tr>
-            <th> Mode description </th>
-            <th> Mode price </th>
-            <th> Change mode status </th>
-        </tr>
-        {% for mode in modes %}
-            <tr>
-                <td> {{ mode.description }} </td>
-                <td> {{ mode.price }} </td>
-                <td>
-                    {% if mode.active == True %}
-                        <button type="button"
-                                onclick="window.location.href='{{ url_for('mode.mode_change_status',
-                                                                  mode_id=mode.id, status=0) }}';">
-                            Deactivate Mode
-                        </button>
-                    {% endif %}
-                    {% if mode.active == False %}
-                        <button type="button"
-                                onclick="window.location.href='{{ url_for('mode.mode_change_status',
-                                                                  mode_id=mode.id, status=1) }}';">
-                            Reactivate Mode
-                        </button>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div>
+            <div class="alert alert-danger" role="alert">
+                <h1> [Admin access] {{ status_operation }} </h1>
+            </div>
+            <div class="alert alert-primary" role="alert">
+                <h1></h1>
+                <h1> Changing mode status </h1>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Price </th>
+                            <th scope="col"> Change mode status </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for mode in modes %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ mode.description }} </td>
+                                <td> {{ mode.price }} </td>
+                                <td>
+                                    {% if mode.active == True %}
+                                        <button class="btn btn-danger" type="button"
+                                                onclick="window.location.href='{{ url_for('mode.mode_change_status',
+                                                                                  mode_id=mode.id, status=0) }}';">
+                                            Deactivate Mode
+                                        </button>
+                                    {% endif %}
+                                    {% if mode.active == False %}
+                                        <button class="btn btn-success" type="button"
+                                                onclick="window.location.href='{{ url_for('mode.mode_change_status',
+                                                                                  mode_id=mode.id, status=1) }}';">
+                                            Reactivate Mode
+                                        </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

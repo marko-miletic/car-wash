@@ -39,7 +39,8 @@ def mode_list_active():
     try:
         active_modes = get_modes_by_active_status(active_status=True)
         return render_template('mode_list.html',
-                               modes=active_modes)
+                               modes=active_modes,
+                               status_operation='Deactivate modes')
     except Exception as err:
         logger.logging.error(err)
         return redirect(url_for('admin.admin_index'))
@@ -51,7 +52,8 @@ def mode_list_inactive():
     try:
         inactive_modes = get_modes_by_active_status(active_status=False)
         return render_template('mode_list.html',
-                               modes=inactive_modes)
+                               modes=inactive_modes,
+                               status_operation='Activate modes')
     except Exception as err:
         logger.logging.error(err)
         return redirect(url_for('admin.admin_index'))

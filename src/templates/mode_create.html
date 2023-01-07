@@ -2,20 +2,31 @@
 
 {% block content %}
 
-    <h1> Create New Mode </h1>
-
-    <form method="POST" action="/mode/create">
-        <label> Mode Description
-            <input type="text"
-                   placeholder="Mode Description"
-                   name="mode_description">
-        </label>
-        <label> Mode Price
-            <input type="number"
-                   placeholder="Mode Price"
-                   name="mode_price">
-        </label>
-        <button type="submit"> Create New Mode </button>
-    </form>
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div class="alert alert-danger" role="alert">
+            <h1> [Admin access] Create new washing mode </h1>
+            <b> Tip: </b> Check
+            <a href={{ url_for('mode.mode_list_active') }} class="alert-link"> active </a> and
+            <a href={{ url_for('mode.mode_list_inactive') }} class="alert-link"> inactive </a>
+            modes first before creating a new one.
+        </div>
+        <div>
+            <form method="POST" action="/mode/create">
+                <div class="mb-3">
+                    <label for="mode_description" class="form-label"> Mode description </label>
+                    <input type="text" placeholder="enter mode description ... " name="mode_description"
+                           autofocus="" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="mode_price" class="form-label"> Mode Price </label>
+                    <input type="number" placeholder="enter mode price ... " name="mode_price"
+                           autofocus="" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary"> Create new mode </button>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

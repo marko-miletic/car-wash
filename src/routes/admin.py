@@ -6,7 +6,7 @@ from src.core.roles import merged_login_role_required_decorator
 from src.crud.user_operations import get_user_by_status, get_all_users
 from src.crud.admin_operations import update_change_user_status
 from src.crud.auth_operations import get_user_by_email, get_user_by_id
-from src.crud.invoice_operations import get_user_invoices, update_invoice_completed_status, get_pending_invoices
+from src.crud.invoice_operations import update_invoice_completed_status, get_pending_invoices, get_split_user_invoices
 from src.crud.discount_operations import get_current_discount_data, post_create_new_discount
 from src.models import Discount
 from src.path_structure import TEMPLATES_DIRECTORY_PATH
@@ -114,11 +114,12 @@ def admin_user_view(user_id: int):
     try:
         user = get_user_by_id(user_id=user_id)
         user_role_mapper = {value: key for key, value in ROLES.items()}
-        user_invoices = get_user_invoices(user_id=user_id)
+        user_split_by_five_invoices = get_split_user_invoices(user_id=user_id, split_number=5)
         return render_template('user_profile.html',
                                user=user,
                                role_mapper=user_role_mapper,
-                               user_invoices=user_invoices)
+                               user_invoices_first_part=user_split_by_five_invoices[0],
+                               user_invoices_rest=user_split_by_five_invoices[1])
     except Exception as err:
         logger.logging.error(err)
         return redirect(url_for('admin.admin_list_users'))

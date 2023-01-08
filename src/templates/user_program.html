@@ -83,12 +83,19 @@
                     <h3> Current program price: {{ program_price }} </h3>
                 </div>
                 <div style="margin-top: 1em">
-                    <button class="alert alert-danger" type="button"
-                            onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
-                        Order program
-                    </button>
+                    {% if program_price != 0.0 %}
+                        <button class="alert alert-danger" type="button"
+                                onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
+                            Order program
+                        </button>
+                    {% endif %}
+                    {% if program_price == 0.0 %}
+                        <button class="alert alert-danger" type="button" disabled
+                                onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
+                            Order program
+                        </button>
+                    {% endif %}
                 </div>
-
             </div>
         </div>
     </div>

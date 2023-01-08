@@ -27,9 +27,6 @@ def build_app():
     def load_user(user_id):
         return get_user_by_id(user_id)
 
-    from src.core.cache import cache
-    cache.init_app(app=app)
-
     # prefills default data required for running program
     # contained in srd.database.preload_db_%
     # 1. creates default admin user

@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 flask = "*"
 sqlalchemy = "*"
-flask-caching = "*"
 python-dotenv = "*"
 pydantic = "*"
 alembic = "*"

@@ -2,13 +2,40 @@
 
 {% block content %}
 
-    <h1> Current users with admin privileges </h1>
-
-    {% for admin in admin_users %}
-        <ul>
-            <li> {{ admin.get('name', 'error loading admin name') }}</li>
-            <li> {{ admin.get('email', 'error loading admin email') }}</li>
-        </ul>
-    {% endfor %}
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div>
+            <div class="alert alert-danger" role="alert">
+                <h1> [Admin access] Admin users </h1>
+            </div>
+            <div class="alert alert-primary" role="alert">
+                <h1> Follow the link below to give admin access to another user </h1>
+                <a href={{ url_for('admin.admin_update_user_status_get') }} class="alert-link"> link </a>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> Id </th>
+                            <th scope="col"> Name </th>
+                            <th scope="col"> Email </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for admin in admin_users %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ admin.id }} </td>
+                                <td> {{ admin.name }} </td>
+                                <td> {{ admin.email }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

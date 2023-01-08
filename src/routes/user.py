@@ -77,7 +77,8 @@ def user_program_remove_mode(mode_id: int, user_id: int):
 def user_create_invoice():
     try:
         discounted_price = calculate_program_invoice_price(user_id=current_user.id)
-        print('discounted price: ', discounted_price)
+        if discounted_price == 0.0:
+            return redirect(url_for('user.user_program'))
         new_invoice = Invoice(price=discounted_price, user_id=current_user.id)
         post_create_new_invoice(new_invoice)
         return redirect(url_for('user.user_program'))

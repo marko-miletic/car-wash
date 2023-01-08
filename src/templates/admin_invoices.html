@@ -2,29 +2,44 @@
 
 {% block content %}
 
-    <h1> Pending invoices </h1>
-
-    <table>
-        <tr>
-            <th> User </th>
-            <th> Price </th>
-            <th> Car registration </th>
-            <th> Complete transaction </th>
-        </tr>
-        {% for invoice in pending_invoices %}
-            <tr>
-                <td> {{ invoice.user }} </td>
-                <td> {{ invoice.price }} </td>
-                <td> {{ invoice.car_registration }} </td>
-                <td>
-                    <button type="button"
-                            onclick="window.location.href='{{ url_for('admin.admin_confirm_invoice_post',
-                                                              invoice_id=invoice.id) }}';">
-                        Complete program transaction
-                    </button>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div>
+            <div class="alert alert-danger" role="alert">
+                <h1> [Admin access] Pending invoices </h1>
+                Confirm invoice (washing program) after it's completed.
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> User </th>
+                            <th scope="col"> Price </th>
+                            <th scope="col"> Car registration </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for invoice in pending_invoices %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ invoice.user }} </td>
+                                <td> {{ invoice.price }} </td>
+                                <td> {{ invoice.car_registration }} </td>
+                                <td>
+                                    <button class="btn btn-success"type="button"
+                                            onclick="window.location.href='{{ url_for('admin.admin_confirm_invoice_post',
+                                                                              invoice_id=invoice.id) }}';">
+                                        Complete program transaction
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

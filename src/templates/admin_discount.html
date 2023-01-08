@@ -2,47 +2,78 @@
 
 {% block content %}
 
-    <h1> Current Discount Info </h1>
-
-    <ul>
-        <li> Base Discount: {{ current_discount.base_discount }} </li>
-        <li> Additional Discount: {{ current_discount.additional_discount }} </li>
-        <li> Additional Discount Description: {{ current_discount.additional_discount_description }} </li>
-        <li> Valid Since: {{ current_discount.valid_since }} </li>
-    </ul>
-
-    <h1>
-        Additional Discount Options
-    </h1>
-
-    <div>
-        <button type="button" onclick="window.location.href='{{ url_for('admin.admin_remove_additional_discount') }}';">
-            Remove Additional Discount
-        </button>
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div class="alert alert-danger" role="alert">
+            <h1> [Admin access] Discount update options </h1>
+        </div>
+        <div class="alert alert-primary" role="alert">
+            <h1> Discount </h1>
+            Current discount values
+        </div>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <b> Base Discount: </b> {{ current_discount.base_discount }}
+                </li>
+                <li class="list-group-item">
+                    <b> Additional Discount: </b> {{ current_discount.additional_discount }}
+                </li>
+                <li class="list-group-item">
+                    <b> Additional Discount Description: </b> {{ current_discount.additional_discount_description }}
+                </li>
+                <li class="list-group-item">
+                    <b> Valid since: </b> {{ current_discount.valid_since }}
+                </li>
+            </ul>
+        </div>
+        <div style="margin-top: 2em">
+            <div class="alert alert-danger" role="alert">
+                <div>
+                    <h1> Remove additional discount </h1>
+                    Base discount value is not changed, just additional discount and description are removed.
+                </div>
+                <div style="margin-top: 1em">
+                    <button class="alert alert-danger" type="button"
+                            onclick="window.location.href='{{ url_for('admin.admin_remove_additional_discount') }}';">
+                        Remove additional discount
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form method="POST" action="/admin/update-discount-status">
+                <div class="mb-3">
+                    <label for="base_discount" class="form-label"> Base discount </label>
+                    <input type="number"
+                           placeholder="enter new base discount ... "
+                           name="base_discount"
+                           value="{{ current_discount.base_discount }}"
+                           autofocus=""
+                           class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="additional_discount" class="form-label"> Additional discount </label>
+                    <input type="number"
+                           placeholder="enter new additional discount ... "
+                           name="additional_discount"
+                           value="{{ current_discount.additional_discount }}"
+                           autofocus=""
+                           class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="additional_discount_desc" class="form-label"> Additional discount description </label>
+                    <input type="text"
+                           placeholder="enter new additional discount description ... "
+                           name="additional_discount_desc"
+                           value="{{ current_discount.additional_discount_description }}"
+                           autofocus=""
+                           class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary"> Update discount values </button>
+            </form>
+        </div>
     </div>
-
-    <h1> Update Discount </h1>
-
-    <form method="POST" action="/admin/update-discount-status">
-        <label> Base Discount
-            <input type="number"
-                   placeholder="Base Discount"
-                   name="base_discount"
-                   value="{{ current_discount.base_discount }}">
-        </label>
-        <label> Additional Discount
-            <input type="number"
-                   placeholder="Additional Discount"
-                   name="additional_discount"
-                   value="{{ current_discount.additional_discount }}">
-        </label>
-        <label> Additional Discount Description
-            <input type="text"
-                   placeholder="Additional Discount Desc."
-                   name="additional_discount_desc"
-                   value="{{ current_discount.additional_discount_description }}">
-        </label>
-        <button type="submit"> Update Discount </button>
-    </form>
+</div>
 
 {% endblock %}

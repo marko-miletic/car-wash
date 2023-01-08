@@ -2,22 +2,47 @@
 
 {% block content %}
 
-    <h1> User List </h1>
-
-    {% for user in users %}
-        <ul>
-            <li> User id: {{ user.id }}</li>
-            <li> User name: {{ user.name }} </li>
-            <li> User email: {{ user.email }} </li>
-            <li> User car_registration: {{ user.car_registration }}</li>
-            <li> User roles: {{ role_mapper.get(user.role) }} </li>
-            <li>
-                <button type="button"
-                        onclick="window.location.href='{{ url_for('admin.admin_user_view', user_id=user.id) }}';">
-                    View Profile
-                </button>
-            </li>
-        </ul>
-    {% endfor %}
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div class="alert alert-danger" role="alert">
+            <h1> [Admin access] Access to all users info. </h1>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col"> Id </th>
+                        <th scope="col"> Name </th>
+                        <th scope="col"> Email </th>
+                        <th scope="col"> Car registration </th>
+                        <th scope="col"> Role </th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for user in users %}
+                        <tr>
+                            <th scope="row"> - </th>
+                            <td> {{ user.id }} </td>
+                            <td> {{ user.name }} </td>
+                            <td> {{ user.email }} </td>
+                            <td> {{ user.car_registration }} </td>
+                            <td> {{ role_mapper.get(user.role) }} </td>
+                            <td>
+                                <li class="list-group-item">
+                                <button class="btn btn-primary" type="button"
+                                        onclick="window.location.href='{{ url_for('admin.admin_user_view',
+                                                                          user_id=user.id) }}';">
+                                    View Profile
+                                </button>
+                            </li>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

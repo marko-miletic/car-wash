@@ -78,12 +78,17 @@
         </div>
         <div style="margin-top: 2em">
             <div class="alert alert-danger" role="alert">
-                <h1> Program order confirmation </h1>
-                <h3> Current program price: {{ program_price }} </h3>
-                <button class="alert alert-danger" type="button"
-                        onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
-                    Order program
-                </button>
+                <div>
+                    <h1> Program order confirmation </h1>
+                    <h3> Current program price: {{ program_price }} </h3>
+                </div>
+                <div style="margin-top: 1em">
+                    <button class="alert alert-danger" type="button"
+                            onclick="window.location.href='{{ url_for('user.user_create_invoice') }}';">
+                        Order program
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>

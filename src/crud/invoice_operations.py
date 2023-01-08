@@ -3,18 +3,57 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from src.logs import logger
 from src.database.session import SessionLocal
-from src.models import Invoice, User
+from src.crud.mode_operations import get_user_selected_modes
+from src.models import Invoice, User, InvoiceModes, Mode
 
 
 session = SessionLocal()
 
 
-def post_create_new_invoice(new_invoice_object: Invoice) -> None:
+def get_invoice_user_id(invoice_id: int) -> int:
+    try:
+        user_id = session.query(Invoice.user_id).filter(Invoice.id == invoice_id).scalar()
+        return user_id
+    except SQLAlchemyError as err:
+        logger.logging.error(err)
+        raise err
+
+
+def post_invoice_modes(user_id: int, invoice_id: int) -> None:
+    try:
+        current_program_modes = get_user_selected_modes(user_id=user_id)
+        list_mode_id = [mode.get('id', None) for mode in current_program_modes]
+        for mode_id in list_mode_id:
+            new_invoice_mode = InvoiceModes(invoice_id=invoice_id, mode_id=mode_id)
+            session.add(new_invoice_mode)
+            session.commit()
+    except SQLAlchemyError as err:
+        session.rollback()
+        logger.logging.error(err)
+        raise err
+
+
+def post_create_new_invoice(user_id: int, new_invoice_object: Invoice) -> None:
     try:
         session.add(new_invoice_object)
         session.commit()
+        post_invoice_modes(user_id=user_id, invoice_id=new_invoice_object.id)
     except SQLAlchemyError as err:
         session.rollback()
+        logger.logging.error(err)
+        raise err
+
+
+def get_invoice_related_modes(invoice_id: int) -> list:
+    invoices_modes_template = ['id', 'invoice_id', 'mode_description', 'price']
+    try:
+        invoice_modes = session.query(InvoiceModes.id, Invoice.id, Mode.description, Mode.price)\
+            .join(Invoice)\
+            .join(Mode)\
+            .filter(InvoiceModes.invoice_id == invoice_id)\
+            .all()
+        return [dict(zip(invoices_modes_template, tuple(row))) for row in invoice_modes]
+    except SQLAlchemyError as err:
         logger.logging.error(err)
         raise err
 

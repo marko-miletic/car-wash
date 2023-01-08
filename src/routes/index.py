@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template
 
 from src.logs import logger
 from src.crud.discount_operations import get_current_discount_data

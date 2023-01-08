@@ -54,6 +54,7 @@
                         <th scope="col"> Invoice id </th>
                         <th scope="col"> Invoice price </th>
                         <th scope="col"> Invoice status </th>
+                        <th scope="col"> Go to invoice page </th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -68,6 +69,13 @@
                             {% if not invoice.get('completed') %}
                                 <td> Pending </td>
                             {% endif %}
+                            <td>
+                                <button class="btn btn-primary" type="button"
+                                    onclick="window.location.href='{{ url_for('invoice.invoice_get_modes',
+                                                                      invoice_id=invoice.get('id')) }}';">
+                                    Go to invoice page
+                                </button>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -89,6 +97,7 @@
                                     <th scope="col"> Invoice id </th>
                                     <th scope="col"> Invoice price </th>
                                     <th scope="col"> Invoice status </th>
+                                    <th scope="col"> Go to invoice page </th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
@@ -103,6 +112,13 @@
                                         {% if not invoice.get('completed') %}
                                             <td> Pending </td>
                                         {% endif %}
+                                        <td>
+                                            <button class="btn btn-primary" type="button"
+                                                onclick="window.location.href='{{ url_for('invoice.invoice_get_modes',
+                                                                                  invoice_id=invoice.get('id')) }}';">
+                                                Go to invoice page
+                                            </button>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

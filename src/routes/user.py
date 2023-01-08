@@ -80,7 +80,7 @@ def user_create_invoice():
         if discounted_price == 0.0:
             return redirect(url_for('user.user_program'))
         new_invoice = Invoice(price=discounted_price, user_id=current_user.id)
-        post_create_new_invoice(new_invoice)
+        post_create_new_invoice(user_id=current_user.id, new_invoice_object=new_invoice)
         return redirect(url_for('user.user_program'))
     except Exception as err:
         logger.logging.error(err)

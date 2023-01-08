@@ -7,6 +7,7 @@ from .discount import Discount
 from .invoice import Invoice
 from .mode import Mode
 from .program import Program
+from .invoice_modes import InvoiceModes
 
 # dialect+driver://username:password@host:port/database
 

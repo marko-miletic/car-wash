@@ -16,7 +16,7 @@ def test_post_create_new_invoice():
     test_invoice = Invoice(price=-1, user_id=test_user.id)
     test_invoice.id = -1
 
-    invoice_operations.post_create_new_invoice(test_invoice)
+    invoice_operations.post_create_new_invoice(user_id=test_user.id, new_invoice_object=test_invoice)
 
     invoice = session.query(Invoice).filter(Invoice.id == test_invoice.id).first()
 

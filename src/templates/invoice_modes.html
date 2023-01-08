@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div>
+            <div class="alert alert-primary" role="alert">
+                <h1> Selected invoice contains following modes: </h1>
+                <h1> </h1>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> Id </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Price </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for mode in invoice_modes %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ mode.id }} </td>
+                                <td> {{ mode.mode_description }} </td>
+                                <td> {{ mode.price }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

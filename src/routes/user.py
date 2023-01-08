@@ -37,9 +37,9 @@ def user_profile():
 @login_required
 def user_program():
     try:
+        # splits modes by selected status
         selected_unselected_modes = get_user_selected_and_available_modes(user_id=current_user.id)
         price_with_discount = calculate_program_invoice_price(user_id=current_user.id)
-        # (selected modes, unselected active modes)
         return render_template('user_program.html',
                                selected_modes=selected_unselected_modes[0],
                                unselected_modes=selected_unselected_modes[1],
@@ -77,6 +77,7 @@ def user_program_remove_mode(mode_id: int, user_id: int):
 def user_create_invoice():
     try:
         discounted_price = calculate_program_invoice_price(user_id=current_user.id)
+        # case when no modes are selected inside the washing program
         if discounted_price == 0.0:
             return redirect(url_for('user.user_program'))
         new_invoice = Invoice(price=discounted_price, user_id=current_user.id)

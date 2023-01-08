@@ -28,7 +28,6 @@ def login_post():
         logger.logging.info(user)
 
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
             raise ValueError('Wrong credentials input')
 
         login_user(user, remember=remember)
@@ -56,7 +55,6 @@ def signup_post():
         logger.logging.info(user)
 
         if user:
-            flash('Email address already exists')
             raise ValueError('email already exists')
 
         new_user_object = User(
@@ -65,7 +63,7 @@ def signup_post():
             password=generate_password_hash(password, method='sha256'),
             car_registration=car_registration
         )
-        # add the new user to the database
+        # add new user to the database
         auth_operations.post_create_new_user(new_user_object)
 
         return redirect(url_for('auth.login'))

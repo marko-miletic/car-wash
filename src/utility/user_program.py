@@ -2,7 +2,20 @@ from src.logs import logger
 from src.crud.mode_operations import get_user_selected_modes, get_modes_by_active_status
 
 
-def get_user_selected_and_available_modes(user_id: int) -> tuple:  # (selected modes, unselected active modes)
+def get_user_selected_and_available_modes(user_id: int) -> tuple:
+    """
+    function:
+        Creates two lists of washing modes.
+        1. First list contains modes that are already selected in user's program.
+        2. Second list contains modes that are both currently available (active) and
+           not contained in user's current program.
+
+    parameters:
+        user_id: int - parameter used for getting washing modes in current user program
+
+    return:
+        tuple[list, list]: contains separated user available modes
+    """
     try:
         selected_modes = get_user_selected_modes(user_id=user_id)
         all_active_modes = get_modes_by_active_status(active_status=True)

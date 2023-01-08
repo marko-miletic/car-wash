@@ -9,6 +9,7 @@ session = session.SessionLocal()
 
 
 def add_default_admin_user() -> None:
+    # checks if there is already required data in db
     test_sample_query = session.query(User).filter(User.name == admin_default_account.USER).scalar()
     if test_sample_query:
         return None
@@ -22,6 +23,7 @@ def add_default_admin_user() -> None:
 
 
 def add_default_discount_data() -> None:
+    # checks if there is already required data in db
     test_sample_query = session.query(Discount).first()
     if test_sample_query:
         return None

@@ -12,6 +12,7 @@ def build_app():
 
     app.config['SECRET_KEY'] = auth_app_settings.AUTH_SECRET_KEY
 
+    # registers routes contained in src.routes folder
     app.register_blueprint(routes.index, url_prefix='/')
     app.register_blueprint(routes.auth, url_prefix='/auth')
     app.register_blueprint(routes.admin, url_prefix='/admin')
@@ -29,6 +30,10 @@ def build_app():
     from src.core.cache import cache
     cache.init_app(app=app)
 
+    # prefills default data required for running program
+    # contained in srd.database.preload_db_%
+    # 1. creates default admin user
+    # 2. creates default discount data
     fill_db_data()
 
     return app

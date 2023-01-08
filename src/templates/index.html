@@ -20,10 +20,10 @@
             {% endif %}
             <div class="alert alert-danger" role="alert">
                 <h1>  Discount info </h1>
-                Every tenth use of our service grants you {{ discount_data.base_discount }} one time discount.
+                Every tenth use of our service grants you <b> {{ discount_data.base_discount }}% </b> one time discount.
                 {% if discount_data.additional_discount != 0.0 %}
                     <h1> There is additional discount!</h1>
-                    <h3> Discount: {{ discount_data.additional_discount }} </h3>
+                    <h3> Discount: <b> {{ discount_data.additional_discount }}% </b> </h3>
                     <h3> Description: {{ discount_data.additional_discount_description }} </h3>
                 {% endif %}
             </div>

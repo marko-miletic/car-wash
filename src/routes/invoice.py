@@ -14,6 +14,9 @@ invoice = Blueprint('invoice', __name__, template_folder=TEMPLATES_DIRECTORY_PAT
 @invoice.route('/<int:invoice_id>')
 def invoice_get_modes(invoice_id: int):
     try:
+        # gets user id and checks for access permission to requested invoice
+        # 1. user has access only to his own invoices
+        # 2. admin has access to all invoices
         invoice_user_id = get_invoice_user_id(invoice_id=invoice_id)
         if invoice_user_id != current_user.id and current_user.role != role_names(role='admin'):
             return redirect(url_for('index.main'))

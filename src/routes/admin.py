@@ -113,6 +113,7 @@ def admin_list_users():
 def admin_user_view(user_id: int):
     try:
         user = get_user_by_id(user_id=user_id)
+        # reverse ROLES dictionary for presenting user roles in named string format
         user_role_mapper = {value: key for key, value in ROLES.items()}
         user_split_by_five_invoices = get_split_user_invoices(user_id=user_id, split_number=5)
         return render_template('user_profile.html',

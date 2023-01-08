@@ -1,7 +1,57 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Car Wash
-</h1>
+
+<div style="padding: 2em">
+    <div style="max-width: 1000px; margin: 0 auto">
+        <div>
+            {% if current_user.is_authenticated %}
+                <div class="alert alert-primary" role="alert">
+                    <h1>  Welcome {{ current_user.name }} to Car Wash </h1>
+                </div>
+            {% endif %}
+            {% if not current_user.is_authenticated %}
+                <div class="alert alert-primary" role="alert">
+                    <h1>  Welcome to Car Wash </h1>
+                    Please
+                    <a href={{ url_for('auth.signup') }} class="alert-link"> Sign up </a> or
+                    <a href={{ url_for('auth.login') }} class="alert-link"> Log in </a> to use our service
+                </div>
+            {% endif %}
+            <div class="alert alert-danger" role="alert">
+                <h1>  Discount info </h1>
+                Every tenth use of our service grants you {{ discount_data.base_discount }} one time discount.
+                {% if discount_data.additional_discount != 0.0 %}
+                    <h1> There is additional discount!</h1>
+                    <h3> Discount: {{ discount_data.additional_discount }} </h3>
+                    <h3> Description: {{ discount_data.additional_discount_description }} </h3>
+                {% endif %}
+            </div>
+            <div class="alert alert-primary" role="alert">
+                <h1>  We are currently offering following modes </h1>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Price </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for mode in active_modes %}
+                            <tr>
+                                <th scope="row"> - </th>
+                                <td> {{ mode.description }} </td>
+                                <td> {{ mode.price }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
